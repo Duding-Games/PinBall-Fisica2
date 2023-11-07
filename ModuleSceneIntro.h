@@ -17,6 +17,8 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
+	void LoadMapCollisions();
+
 public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
