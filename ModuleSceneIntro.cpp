@@ -198,4 +198,69 @@ void ModuleSceneIntro::LoadMapCollisions()
 	};
 
 	App->physics->CreateChain(0, 0, background_collision, 84, b2_staticBody);
+
+	//left slide
+	int left_slide[12] = {
+		90, 617,
+		106, 687,
+		215, 744,
+		220, 733,
+		117, 680,
+		100, 615
+	};
+
+	App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody);
+	
+	// right slide
+	int right_slide [12] = {
+		434, 615,
+		417, 680,
+		316, 734,
+		321, 744,
+		426, 688,
+		445, 617
+	};
+
+	App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody);
+
+	//left triangle
+	int left_triangle[6] = {
+		146, 593,
+		146, 673,
+		190, 694
+	};
+
+	App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody);
+
+	//right triangle
+	int right_triangle[6] = {
+		391, 595,
+		391, 672,
+		350, 694
+	};
+	
+	App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody);
+
+	//center arrow
+	int center_arrow[12] = {
+		254, 597,
+		274, 577,
+		295, 597,
+		286, 606,
+		274, 592,
+		261, 606
+	};
+
+	App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody);
+
+	//trapezium
+	int trapezium[10] = {
+		91, 302,
+		105, 296,
+		189, 356,
+		190, 456,
+		91, 515
+	};
+
+	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody);
 }
