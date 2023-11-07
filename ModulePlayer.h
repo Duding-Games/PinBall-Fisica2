@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModulePhysics.h"
 
 class ModulePlayer : public Module
 {
@@ -13,6 +14,12 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-public:
+	struct Player {
+		int x = 500;
+		int y = 600;
+		int radius = 10;
+	};
 
+public:
+	PhysBody* pbody;
 };
