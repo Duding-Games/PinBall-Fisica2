@@ -15,7 +15,8 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	pbody = App->physics->CreateCircle(player.x, player.y, player.radius);
+	pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL);
+	pbody->listener = this;
 	LOG("Loading player");
 	return true;
 }
@@ -30,6 +31,16 @@ bool ModulePlayer::CleanUp()
 
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+
+	
+	
+	
+
+
+	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SENSOR) {
+		resetBall = true;
+		
+	}
 }
 
 
@@ -38,9 +49,18 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 update_status ModulePlayer::Update()
 {
 
+	if (resetBall) {
+		pbody->body->GetWorld()->DestroyBody(pbody->body);
+		pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL);
+		pbody->listener = this;
+
+		resetBall = false;
+	}
+
+
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
-		pbody = App->physics->CreateCircle(player.x, player.y, player.radius);
+		pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL);
 		pbody->listener = this;
 	}
 

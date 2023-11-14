@@ -12,6 +12,13 @@
 #define METERS_TO_PIXELS(m) ((int) floor(PIXELS_PER_METER * m))
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
 
+enum class ColliderType {
+	UNKNOWN,
+	SENSOR,
+	BALL,
+	POINT
+};
+
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
 {
@@ -28,6 +35,8 @@ public:
 	int width, height;
 	b2Body* body;
 	Module* listener;
+	ColliderType type;
+	
 };
 
 // Module --------------------------------------
@@ -42,9 +51,9 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius);
+	PhysBody* CreateCircle(int x, int y, int radius, ColliderType type);
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
+	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, ColliderType type);
 	PhysBody* CreateChain(int x, int y, int* points, int size, b2BodyType type);
 
 	// b2ContactListener ---

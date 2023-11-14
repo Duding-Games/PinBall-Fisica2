@@ -171,9 +171,10 @@ void ModuleSceneIntro::LoadMapCollisions()
 	// spring
 	spring = App->physics->CreateRectangle(504, 700, 24, 10);
 	spring->body->SetFixedRotation(true);
+	spring->type = ColliderType::POINT;
 
 	// spring point 
-	springPoint = App->physics->CreateCircle(500, 710, 3);
+	springPoint = App->physics->CreateCircle(500, 710, 3, ColliderType::POINT);
 	springPoint->body->SetType(b2_staticBody);
 
 	b2DistanceJointDef springDef;
@@ -195,7 +196,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	// Sensor
 
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100);
+	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100, ColliderType::SENSOR);
 
 	int background_collision[84] = {
 		513, 767,

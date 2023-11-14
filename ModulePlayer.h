@@ -26,4 +26,5 @@ public:
 
 public:
 	PhysBody* pbody;
+	bool resetBall = false;
 };
