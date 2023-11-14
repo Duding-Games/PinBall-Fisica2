@@ -28,6 +28,7 @@ public:
 	PhysBody* springPoint;
 	PhysBody* sensor;
 	bool sensed;
+	float springForce = 0;
 
 	SDL_Texture* map;
 	SDL_Texture* circle;

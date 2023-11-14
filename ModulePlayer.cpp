@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
+#include "ModuleInput.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -30,6 +31,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	return UPDATE_CONTINUE;
 }
 

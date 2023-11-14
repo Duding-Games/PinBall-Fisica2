@@ -52,84 +52,96 @@ update_status ModuleSceneIntro::Update()
 	//draw map
 	App->renderer->Blit(map, 0, 0);
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		ray_on = !ray_on;
-		ray.x = App->input->GetMouseX();
-		ray.y = App->input->GetMouseY();
-	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+		if (springForce < 200) {
+			springForce += 5;
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
-		circles.getLast()->data->listener = this;
-	}
+		spring->body->ApplyForceToCenter(b2Vec2(0, springForce), 1);
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+		
 	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
+		springForce = 0;
+	}
+	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	//{
+	//	ray_on = !ray_on;
+	//	ray.x = App->input->GetMouseX();
+	//	ray.y = App->input->GetMouseY();
+	//}
+
+	//if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	//{
+	//	circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
+	//	circles.getLast()->data->listener = this;
+	//}
+
+	//if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	//{
+	//	boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+	//}
 
 
 	// Prepare for raycast ------------------------------------------------------
 
-	iPoint mouse;
-	mouse.x = App->input->GetMouseX();
-	mouse.y = App->input->GetMouseY();
-	int ray_hit = ray.DistanceTo(mouse);
+	//iPoint mouse;
+	//mouse.x = App->input->GetMouseX();
+	//mouse.y = App->input->GetMouseY();
+	//int ray_hit = ray.DistanceTo(mouse);
 
-	fVector normal(0.0f, 0.0f);
+	//fVector normal(0.0f, 0.0f);
 
-	// All draw functions ------------------------------------------------------
-	p2List_item<PhysBody*>* c = circles.getFirst();
+	//// All draw functions ------------------------------------------------------
+	//p2List_item<PhysBody*>* c = circles.getFirst();
 
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
-			App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
+	//while (c != NULL)
+	//{
+	//	int x, y;
+	//	c->data->GetPosition(x, y);
+	//	if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
+	//		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
+	//	c = c->next;
+	//}
 
-	c = boxes.getFirst();
+	//c = boxes.getFirst();
 
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-		if (ray_on)
-		{
-			int hit = c->data->RayCast(ray.x, ray.y, mouse.x, mouse.y, normal.x, normal.y);
-			if (hit >= 0)
-				ray_hit = hit;
-		}
-		c = c->next;
-	}
+	//while (c != NULL)
+	//{
+	//	int x, y;
+	//	c->data->GetPosition(x, y);
+	//	App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
+	//	if (ray_on)
+	//	{
+	//		int hit = c->data->RayCast(ray.x, ray.y, mouse.x, mouse.y, normal.x, normal.y);
+	//		if (hit >= 0)
+	//			ray_hit = hit;
+	//	}
+	//	c = c->next;
+	//}
 
-	c = ricks.getFirst();
+	//c = ricks.getFirst();
 
-	while (c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
+	//while (c != NULL)
+	//{
+	//	int x, y;
+	//	c->data->GetPosition(x, y);
+	//	App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
+	//	c = c->next;
+	//}
 
-	// ray -----------------
-	if (ray_on == true)
-	{
-		fVector destination(mouse.x - ray.x, mouse.y - ray.y);
-		destination.Normalize();
-		destination *= ray_hit;
+	//// ray -----------------
+	//if (ray_on == true)
+	//{
+	//	fVector destination(mouse.x - ray.x, mouse.y - ray.y);
+	//	destination.Normalize();
+	//	destination *= ray_hit;
 
-		App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
+	//	App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
 
-		if (normal.x != 0.0f)
-			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
-	}
+	//	if (normal.x != 0.0f)
+	//		App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
+	//}
 
 	return UPDATE_CONTINUE;
 }
@@ -179,7 +191,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 	springDef.frequencyHz = 7.0f;
 	springDef.dampingRatio = 0.05f;
 
-	/*b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics*/
+	b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics->GetWorld()->CreateJoint(&springDef);
 
 	int background_collision[84] = {
 		513, 767,
