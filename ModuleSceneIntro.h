@@ -37,4 +37,12 @@ public:
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
+
+	uint score = 000;
+	uint prevScore = 000;
+	uint highScore = 000;
+	int scoreFont = -1;
+	char scoreText[10] = { "\0" };
+	char prevScoreText[10] = { "\0" };
+	char highScoreText[10] = { "\0" };
 };
