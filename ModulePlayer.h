@@ -14,11 +14,15 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
 	struct Player {
 		int x = 500;
 		int y = 600;
-		int radius = 10;
+		int radius = 8;
 	};
+
+	Player player;
 
 public:
 	PhysBody* pbody;

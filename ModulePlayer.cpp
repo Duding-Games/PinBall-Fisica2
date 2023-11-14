@@ -3,6 +3,7 @@
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include "SDL/include/SDL_scancode.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -14,7 +15,6 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	Player player;
 	pbody = App->physics->CreateCircle(player.x, player.y, player.radius);
 	LOG("Loading player");
 	return true;
@@ -28,12 +28,25 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
+void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+}
+
+
+
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		pbody->body->GetWorld()->DestroyBody(pbody->body);
+		pbody = App->physics->CreateCircle(player.x, player.y, player.radius);
+		pbody->listener = this;
+	}
+
+	
+
 	return UPDATE_CONTINUE;
 }
-
 
 

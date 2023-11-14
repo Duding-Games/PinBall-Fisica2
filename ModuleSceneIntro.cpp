@@ -53,13 +53,13 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(map, 0, 0);
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-		if (springForce < 200) {
+		if (springForce < 150) {
 			springForce += 5;
 		}
 
 		spring->body->ApplyForceToCenter(b2Vec2(0, springForce), 1);
 
-		
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
 		springForce = 0;
@@ -187,11 +187,15 @@ void ModuleSceneIntro::LoadMapCollisions()
 	springDef.length = 1.5f;
 
 	springDef.collideConnected = true;
-	
+
 	springDef.frequencyHz = 7.0f;
 	springDef.dampingRatio = 0.05f;
 
 	b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics->GetWorld()->CreateJoint(&springDef);
+
+	// Sensor
+
+	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100);
 
 	int background_collision[84] = {
 		513, 767,
@@ -251,9 +255,9 @@ void ModuleSceneIntro::LoadMapCollisions()
 	};
 
 	App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody);
-	
+
 	// right slide
-	int right_slide [12] = {
+	int right_slide[12] = {
 		434, 615,
 		417, 680,
 		316, 734,
@@ -279,7 +283,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		391, 672,
 		350, 694
 	};
-	
+
 	App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody);
 
 	//center arrow
