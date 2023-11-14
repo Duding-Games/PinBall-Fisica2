@@ -164,11 +164,22 @@ void ModuleSceneIntro::LoadMapCollisions()
 	springPoint = App->physics->CreateCircle(500, 710, 3);
 	springPoint->body->SetType(b2_staticBody);
 
-	b2DistanceJointDef springJoint;
+	b2DistanceJointDef springDef;
 
-	springJoint.bodyA = spring->body;
-	springJoint.bodyB = springPoint->body;
+	springDef.bodyA = spring->body;
+	springDef.bodyB = springPoint->body;
 
+	springDef.localAnchorA.Set(0, 0);
+	springDef.localAnchorB.Set(0, 0);
+
+	springDef.length = 1.5f;
+
+	springDef.collideConnected = true;
+	
+	springDef.frequencyHz = 7.0f;
+	springDef.dampingRatio = 0.05f;
+
+	/*b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics*/
 
 	int background_collision[84] = {
 		513, 767,
