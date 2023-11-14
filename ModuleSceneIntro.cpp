@@ -152,6 +152,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	App->audio->PlayFx(bonus_fx);
 
+
+
+
+
+
 	/*
 	if(bodyA)
 	{
@@ -174,7 +179,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 	spring->type = ColliderType::POINT;
 
 	// spring point 
-	springPoint = App->physics->CreateCircle(500, 710, 3, ColliderType::POINT);
+	springPoint = App->physics->CreateCircle(500, 710, 3, ColliderType::POINT, b2_staticBody, 0);
+
 	springPoint->body->SetType(b2_staticBody);
 
 	b2DistanceJointDef springDef;
@@ -309,4 +315,16 @@ void ModuleSceneIntro::LoadMapCollisions()
 	};
 
 	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody);
+
+	App->physics->CreateCircle(178, 225, 30, ColliderType::UNKNOWN ,b2_staticBody, 0.7f);
+
+	App->physics->CreateCircle(258, 179, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	App->physics->CreateCircle(254, 281, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	App->physics->CreateCircle(239, 437, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+	App->physics->CreateCircle(382, 500, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+	App->physics->CreateCircle(444, 580, 12, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST);
 }

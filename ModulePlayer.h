@@ -15,6 +15,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void OnExitCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 	struct Player {
 		int x = 500;
@@ -27,4 +28,5 @@ public:
 public:
 	PhysBody* pbody;
 	bool resetBall = false;
+	bool isInside = false;
 };

@@ -16,7 +16,8 @@ enum class ColliderType {
 	UNKNOWN,
 	SENSOR,
 	BALL,
-	POINT
+	POINT,
+	BOOST
 };
 
 // Small class to return to other modules to track position and rotation of physics bodies
@@ -51,13 +52,17 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius, ColliderType type);
+
+	PhysBody* CreateCircle(int x, int y, int radius, ColliderType ctype, b2BodyType type, float restituition);
+
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, ColliderType type);
 	PhysBody* CreateChain(int x, int y, int* points, int size, b2BodyType type);
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
+	void EndContact(b2Contact* contact);
+
 	b2World* GetWorld();
 
 private:

@@ -15,10 +15,13 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL);
+
+	pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL, b2_dynamicBody, 0.1f);
 	pbody->listener = this;
+
 	LOG("Loading player");
 	return true;
+	
 }
 
 // Unload assets
@@ -31,15 +34,18 @@ bool ModulePlayer::CleanUp()
 
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-
-	
-	
-	
-
-
 	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SENSOR) {
-		resetBall = true;
-		
+		resetBall = true;	
+	}
+	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
+		isInside = true;
+	}
+}
+
+void ModulePlayer::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
+		isInside = false;
 	}
 }
 
@@ -51,7 +57,7 @@ update_status ModulePlayer::Update()
 
 	if (resetBall) {
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
-		pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL);
+		pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL, b2_dynamicBody, 0.1f);
 		pbody->listener = this;
 
 		resetBall = false;
@@ -60,10 +66,15 @@ update_status ModulePlayer::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
-		pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL);
+
+		pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL, b2_dynamicBody, 0.1f);
+
 		pbody->listener = this;
 	}
 
+	if (isInside) {
+		pbody->body->ApplyForceToCenter(b2Vec2(0.1f, -2), 1);
+	}
 	
 
 	return UPDATE_CONTINUE;
