@@ -156,6 +156,20 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 void ModuleSceneIntro::LoadMapCollisions()
 {
+	// spring
+	spring = App->physics->CreateRectangle(504, 700, 24, 10);
+	spring->body->SetFixedRotation(true);
+
+	// spring point 
+	springPoint = App->physics->CreateCircle(500, 710, 3);
+	springPoint->body->SetType(b2_staticBody);
+
+	b2DistanceJointDef springJoint;
+
+	springJoint.bodyA = spring->body;
+	springJoint.bodyB = springPoint->body;
+
+
 	int background_collision[84] = {
 		513, 767,
 		514, 262,

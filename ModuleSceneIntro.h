@@ -24,6 +24,8 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 
+	PhysBody* spring;
+	PhysBody* springPoint;
 	PhysBody* sensor;
 	bool sensed;
 
