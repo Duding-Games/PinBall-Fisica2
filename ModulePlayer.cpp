@@ -73,7 +73,7 @@ update_status ModulePlayer::Update()
 	}
 
 	if (isInside) {
-		pbody->body->ApplyForceToCenter(b2Vec2(0.1f, -2), 1);
+		pbody->body->ApplyForceToCenter(b2Vec2(0.05f, -2), 1);
 	}
 	
 
