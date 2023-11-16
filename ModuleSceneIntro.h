@@ -27,6 +27,10 @@ public:
 	PhysBody* spring;
 	PhysBody* springPoint;
 	PhysBody* sensor;
+	PhysBody* R_Paleta;
+	PhysBody* R_PaletaPoint;
+	PhysBody* L_Paleta;
+	PhysBody* L_PaletaPoint;
 	bool sensed;
 	float springForce = 0;
 

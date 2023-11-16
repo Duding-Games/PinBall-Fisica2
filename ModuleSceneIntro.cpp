@@ -134,7 +134,7 @@ update_status ModuleSceneIntro::Update()
 	//	c = c->next;
 	//}
 
-	//// ray -----------------
+  //// ray -----------------
 	//if (ray_on == true)
 	//{
 	//	fVector destination(mouse.x - ray.x, mouse.y - ray.y);
@@ -182,11 +182,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 void ModuleSceneIntro::LoadMapCollisions()
 {
 	// spring
-	spring = App->physics->CreateRectangle(504, 700, 24, 10);
+	spring = App->physics->CreateRectangle(504, 700, 24, 10, b2_dynamicBody);
 	spring->body->SetFixedRotation(true);
 	spring->type = ColliderType::POINT;
 
-	// spring point 
+
 	springPoint = App->physics->CreateCircle(500, 710, 3, ColliderType::POINT, b2_staticBody, 0);
 
 	springPoint->body->SetType(b2_staticBody);
@@ -208,6 +208,42 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics->GetWorld()->CreateJoint(&springDef);
 
+	// paleta R
+	R_Paleta = App->physics->CreateRectangle(293, 740, 45, 10, b2_staticBody);
+	R_Paleta->body->SetFixedRotation(false);
+	R_Paleta->type = ColliderType::UNKNOWN;
+
+	R_PaletaPoint = App->physics->CreateCircle(310, 740, 3, ColliderType::POINT, b2_staticBody, 0);
+
+	b2RevoluteJointDef R_PaletaDef;
+
+	R_PaletaDef.bodyA = R_Paleta->body;
+	R_PaletaDef.bodyB = R_PaletaPoint->body;
+
+	R_PaletaDef.referenceAngle = 0 * DEGTORAD;
+	R_PaletaDef.enableLimit = true;
+	R_PaletaDef.lowerAngle = - 30 * DEGTORAD;
+	R_PaletaDef.upperAngle = 30 * DEGTORAD;
+	R_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(50), 0);
+	R_PaletaDef.localAnchorB.Set(0, 0);
+
+	b2RevoluteJoint* R_PaletaJoint = (b2RevoluteJoint*)App->physics->GetWorld()->CreateJoint(&R_PaletaDef);
+
+	
+
+	// circles
+	App->physics->CreateCircle(178, 225, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	App->physics->CreateCircle(258, 179, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	App->physics->CreateCircle(254, 281, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	App->physics->CreateCircle(239, 437, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+	App->physics->CreateCircle(382, 500, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+	App->physics->CreateCircle(444, 580, 12, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+
+	// boost
+	App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST);
 	// Sensor
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100, ColliderType::SENSOR);
@@ -324,15 +360,5 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody);
 
-	App->physics->CreateCircle(178, 225, 30, ColliderType::UNKNOWN ,b2_staticBody, 0.7f);
 
-	App->physics->CreateCircle(258, 179, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-
-	App->physics->CreateCircle(254, 281, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-
-	App->physics->CreateCircle(239, 437, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-	App->physics->CreateCircle(382, 500, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-	App->physics->CreateCircle(444, 580, 12, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-
-	App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST);
 }
