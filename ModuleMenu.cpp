@@ -3,6 +3,7 @@
 #include "ModuleMenu.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "SDL/include/SDL_scancode.h"
 
@@ -16,12 +17,18 @@ ModuleMenu::~ModuleMenu()
 // Load assets
 bool ModuleMenu::Start()
 {
-
+	App->textures->Load("pinball/menuScreen.png");
 	
 
 	LOG("Loading menu");
 	return true;
 
+}
+// Update: draw background
+update_status ModuleMenu::Update()
+{
+	App->renderer->Blit(menuScreen, 0, 0);
+	return UPDATE_CONTINUE;
 }
 
 // Unload assets
@@ -44,11 +51,5 @@ void ModuleMenu::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 
 
-// Update: draw background
-update_status ModuleMenu::Update()
-{
-
-	return UPDATE_CONTINUE;
-}
 
 

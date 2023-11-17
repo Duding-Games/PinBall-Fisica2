@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "ModulePhysics.h"
 #include "ModuleTextures.h"
+#include "ModuleRender.h"
 
 class ModuleMenu : public Module
 {
