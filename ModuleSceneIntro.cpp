@@ -112,6 +112,9 @@ update_status ModuleSceneIntro::Update()
 		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_UP) {
+		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
+	}
 
 	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	//{

@@ -50,6 +50,8 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		resetBall = true;
 		App->audio->PlayFx(lose_fx);
 		App->scene_intro->lives--;
+		prevScore = score;
+		score = 0;
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
 		isInside = true;
@@ -97,6 +99,8 @@ update_status ModulePlayer::Update()
 	if (isInside) {
 		pbody->body->ApplyForceToCenter(b2Vec2(0.05f, -2), 1);
 	}
+
+	if (score > highScore) highScore = score;
 	
 	sprintf_s(scoreText, 10, "%d", score);
 	App->fonts->BlitText(10, 10, scoreFont, scoreText);
