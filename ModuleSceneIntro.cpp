@@ -55,6 +55,8 @@ bool ModuleSceneIntro::CleanUp()
 	App->player->Disable();
 	App->physics->GetWorld()->DestroyBody(R_Paleta->body);
 	App->physics->GetWorld()->DestroyBody(R_PaletaPoint->body);
+	App->physics->GetWorld()->DestroyBody(L_Paleta->body);
+	App->physics->GetWorld()->DestroyBody(L_PaletaPoint->body);
 	App->physics->GetWorld()->DestroyBody(spring->body);
 	App->physics->GetWorld()->DestroyBody(springPoint->body);
 
@@ -94,10 +96,15 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 		App->audio->PlayFx(flipper_fx);
 	}
-	
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		L_Paleta->body->ApplyForceToCenter(b2Vec2(0, -50), 1);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		App->audio->PlayFx(flipper_fx);
+	}
 
 
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN){
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
 		lives = 0;
 	}
 
@@ -244,11 +251,11 @@ void ModuleSceneIntro::LoadMapCollisions()
 	b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics->GetWorld()->CreateJoint(&springDef);
 
 	// paleta R
-	R_Paleta = App->physics->CreateRectangle(293, 740, 45, 10, b2_dynamicBody);
+	R_Paleta = App->physics->CreateRectangle(293, 740, 70, 10, b2_dynamicBody);
 	R_Paleta->body->SetFixedRotation(false);
 	R_Paleta->type = ColliderType::UNKNOWN;
 
-	R_PaletaPoint = App->physics->CreateCircle(310, 740, 3, ColliderType::POINT, b2_staticBody, 0);
+	R_PaletaPoint = App->physics->CreateCircle(335, 725, 3, ColliderType::POINT, b2_staticBody, 0);
 
 	b2RevoluteJointDef R_PaletaDef;
 
@@ -257,21 +264,42 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	R_PaletaDef.referenceAngle = 0 * DEGTORAD;
 	R_PaletaDef.enableLimit = true;
-	R_PaletaDef.lowerAngle = -30 * DEGTORAD;
+	R_PaletaDef.lowerAngle = -25 * DEGTORAD;
 	R_PaletaDef.upperAngle = 30 * DEGTORAD;
-	R_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(15), 0);
+	R_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(25), 0);
 	R_PaletaDef.localAnchorB.Set(0, 0);
 
 	b2RevoluteJoint* R_PaletaJoint = (b2RevoluteJoint*)App->physics->GetWorld()->CreateJoint(&R_PaletaDef);
 
+	// paleta L
+	L_Paleta = App->physics->CreateRectangle(200, 740, 70, 10, b2_dynamicBody);
+	L_Paleta->body->SetFixedRotation(false);
+	L_Paleta->type = ColliderType::UNKNOWN;
 
-	mapColliders.add(App->physics->CreateCircle(178, 225, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
+	L_PaletaPoint = App->physics->CreateCircle(195, 725, 3, ColliderType::POINT, b2_staticBody, 0);
+
+	b2RevoluteJointDef L_PaletaDef;
+
+	L_PaletaDef.bodyA = L_Paleta->body;
+	L_PaletaDef.bodyB = L_PaletaPoint->body;
+
+	L_PaletaDef.referenceAngle = 0 * DEGTORAD;
+	L_PaletaDef.enableLimit = true;
+	L_PaletaDef.lowerAngle = -25 * DEGTORAD;
+	L_PaletaDef.upperAngle = 30 * DEGTORAD;
+	L_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(-25), 0);
+	L_PaletaDef.localAnchorB.Set(0, 0);
+
+	b2RevoluteJoint* L_PaletaJoint = (b2RevoluteJoint*)App->physics->GetWorld()->CreateJoint(&L_PaletaDef);
+
+	
 	// circles
-	mapColliders.add(App->physics->CreateCircle(258, 179, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
-	mapColliders.add(App->physics->CreateCircle(254, 281, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
-	mapColliders.add(App->physics->CreateCircle(239, 437, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
-	mapColliders.add(App->physics->CreateCircle(382, 500, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
-	mapColliders.add(App->physics->CreateCircle(444, 580, 12, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(178, 225, 30, ColliderType::METEOR, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(258, 179, 30, ColliderType::METEOR, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(254, 281, 30, ColliderType::METEOR, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(239, 437, 15, ColliderType::METEOR, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(382, 500, 15, ColliderType::METEOR, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(444, 580, 12, ColliderType::METEOR, b2_staticBody, 0.7f));
 
 	// boost
 	mapColliders.add(App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST));
