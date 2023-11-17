@@ -286,7 +286,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		107, 689,
 		89, 617
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody, 0.9f));
+	mapColliders.add(App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody, 0.2f));
 
 
 	// right slide
@@ -298,7 +298,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		426, 689,
 		352, 726
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody, 0.9f));
+	mapColliders.add(App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody, 0.2f));
 
 
 	//left triangle
@@ -307,7 +307,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		132, 618,
 		151, 671
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody, 0.9f));
+	mapColliders.add(App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody, 0.2f));
 
 
 	//right triangle
@@ -316,7 +316,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		402, 617,
 		383, 670
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody, 0.9f));
+	mapColliders.add(App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody, 0.2f));
 
 
 	//center arrow
@@ -328,7 +328,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		266, 581,
 		253, 594
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody, 0.9f));
+	mapColliders.add(App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody, 0.2f));
 
 
 	//trapezium
@@ -339,7 +339,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		190, 456,
 		91, 515
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody, 0.9f));
+	mapColliders.add(App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody, 0.4f));
 
 
 	//center rectangle
@@ -349,7 +349,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		344, 432,
 		285, 513
 	};
-	mapColliders.add(App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody, 0.4f));
 
 
 	//mini rect1
