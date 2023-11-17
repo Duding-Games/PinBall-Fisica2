@@ -39,4 +39,6 @@ public:
 	int scoreFont = -1;
 	int offset = 8;
 	char scoreText[10] = { "\0" };
+
+	 
 };
