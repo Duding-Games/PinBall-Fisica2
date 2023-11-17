@@ -2,12 +2,12 @@
 
 #include "Application.h"
 #include "ModuleRender.h"
-
+#include "Module.h"
 #include "SDL/include/SDL_render.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-//	screenRect = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
+	screenRect = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 }
 
 ModuleFadeToBlack::~ModuleFadeToBlack()
