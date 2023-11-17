@@ -255,103 +255,100 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100, ColliderType::SENSOR);
 
-	int background_collision[84] = {
-		513, 767,
+	int background_collision[78] = {
+		514, 767,
 		514, 262,
-		505, 234,
-		496, 214,
-		482, 191,
-		463, 169,
-		440, 149,
-		407, 129,
-		373, 116,
-		337, 107,
-		300, 103,
-		263, 103,
-		233, 105,
-		206, 109,
-		177, 117,
-		148, 129,
-		121, 145,
-		102, 161,
-		84, 184,
-		72, 206,
-		64, 228,
-		60, 247,
-		60, 559,
-		84, 579,
+		507, 237,
+		489, 203,
+		467, 173,
+		432, 143,
+		400, 126,
+		358, 110,
+		318, 104,
+		266, 103,
+		229, 106,
+		200, 110,
+		184, 115,
+		160, 161,
+		144, 130,
+		116, 149,
+		90, 175,
+		75, 200,
+		65, 223,
+		59, 250,
+		59, 556,
+		82, 577,
 		74, 585,
-		60, 571,
-		60, 655,
-		76, 720,
-		170, 765,
-		170, 808,
-		363, 808,
-		363, 762,
-		461, 711,
-		479, 643,
-		478, 365,
-		460, 392,
-		459, 546,
-		449, 546,
-		449, 389,
-		476, 346,
-		488, 346,
-		489, 767
+		58, 571,
+		58, 655,
+		76, 721,
+		174, 767,
+		174, 829,
+		355, 829,
+		355, 767,
+		458, 716,
+		478, 643,
+		478, 560,
+		460, 547,
+		449, 547,
+		449, 390,
+		477, 347,
+		489, 347,
+		489, 768
 	};
 
-	App->physics->CreateChain(0, 0, background_collision, 84, b2_staticBody);
+	App->physics->CreateChain(0, 0, background_collision, 78, b2_staticBody);
 
 	//left slide
 	int left_slide[12] = {
-		90, 617,
-		106, 687,
-		215, 744,
-		220, 733,
-		117, 680,
-		100, 615
+		100, 614,
+		118, 684,
+		185, 717,
+		180, 727,
+		107, 689,
+		89, 617
 	};
 
 	App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody);
 
 	// right slide
 	int right_slide[12] = {
-		434, 615,
-		417, 680,
-		316, 734,
-		321, 744,
-		426, 688,
-		445, 617
+		347, 717,
+		417, 682,
+		433, 614,
+		445, 617,
+		426, 689,
+		352, 726
 	};
 
-	//App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody);
+	App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody);
 
 	//left triangle
 	int left_triangle[6] = {
-		146, 593,
-		146, 673,
-		190, 694
+		184, 673,
+		132, 618,
+		151, 671
 	};
 
 	App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody);
 
 	//right triangle
 	int right_triangle[6] = {
-		391, 595,
-		391, 672,
-		350, 694
+		349, 674,
+		402, 617,
+		383, 670
 	};
 
 	App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody);
 
 	//center arrow
 	int center_arrow[12] = {
-		254, 597,
-		274, 577,
-		295, 597,
-		286, 606,
-		274, 592,
-		261, 606
+		245, 588,
+		266, 566,
+		287, 587,
+		279, 594,
+		266, 581,
+		253, 594
 	};
 
 	App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody);
@@ -367,5 +364,69 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody);
 
+	//center rectangle
+	int center_rectangle[8] = {
+		275, 506,
+		334, 425,
+		344, 432,
+		285, 513
+	};
 
+	App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody);
+
+	//mini rect1
+	int mini_rect1[16] = {
+		297, 380,
+		297, 346,
+		300, 342,
+		305, 342,
+		308, 346,
+		308, 380,
+		305, 383,
+		301, 383
+	};
+
+	App->physics->CreateChain(0, 0, mini_rect1, 16, b2_staticBody);
+
+	//mini rect2
+	int mini_rect2[16] = {
+		334, 379,
+		334, 345,
+		337, 342,
+		342, 342,
+		345, 345,
+		345, 379,
+		342, 383,
+		337, 383
+	};
+
+	App->physics->CreateChain(0, 0, mini_rect2, 16, b2_staticBody);
+
+	//mini rect3
+	int mini_rect3[16] = {
+		371, 380,
+		371, 345,
+		374, 342,
+		379, 342,
+		381, 345,
+		381, 379,
+		379, 383,
+		374, 383
+	};
+
+	App->physics->CreateChain(0, 0, mini_rect3, 16, b2_staticBody);
+
+	//mini rect4
+	int mini_rect4[16] = {
+		408, 380,
+		408, 345,
+		411, 342,
+		416, 342,
+		419, 345,
+		419, 380,
+		416, 383,
+		412, 383
+	};
+
+	App->physics->CreateChain(0, 0, mini_rect4, 16, b2_staticBody);
 }

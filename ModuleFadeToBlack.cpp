@@ -5,10 +5,10 @@
 
 #include "SDL/include/SDL_render.h"
 
-ModuleFadeToBlack::ModuleFadeToBlack(bool startEnabled) : Module(startEnabled)
-{
-	screenRect = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
-}
+//ModuleFadeToBlack::ModuleFadeToBlack(bool startEnabled) : Module(startEnabled)
+//{
+//	screenRect = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
+//}
 
 ModuleFadeToBlack::~ModuleFadeToBlack()
 {
