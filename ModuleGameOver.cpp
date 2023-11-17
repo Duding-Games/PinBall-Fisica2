@@ -5,6 +5,8 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModuleFonts.h"
+#include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "SDL/include/SDL_scancode.h"
 
@@ -20,6 +22,9 @@ ModuleGameOver::~ModuleGameOver()
 bool ModuleGameOver::Start()
 {
 	gameOverScreen = App->textures->Load("pinball/GameOver.png");
+	char lookupTable[] = { "0123456789" };
+	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
+
 	LOG("Loading game over");
 	return true;
 
@@ -28,6 +33,16 @@ bool ModuleGameOver::Start()
 update_status ModuleGameOver::Update()
 {
 	App->renderer->Blit(gameOverScreen, 0, 0);
+
+	sprintf_s(scoreText, 10, "%d", App->player->prevScore);
+	App->fonts->BlitText(260, 530, scoreFont, scoreText);
+
+	sprintf_s(scoreText, 10, "%d", App->player->highScore);
+	App->fonts->BlitText(310, 600, scoreFont, scoreText);
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
+		App->fadeToBlack->FadeToBlack(App->scene_gameOver, (Module*)App->scene_menu, 20.0f);
+	}
 
 	return UPDATE_CONTINUE;
 }

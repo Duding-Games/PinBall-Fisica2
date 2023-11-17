@@ -20,5 +20,7 @@ public:
 	void OnExitCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 	SDL_Texture* gameOverScreen;
+	int scoreFont = -1;
+	char scoreText[10] = { "\0" };
 
 };
