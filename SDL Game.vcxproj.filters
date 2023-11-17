@@ -59,6 +59,12 @@
     <ClInclude Include="ModuleFonts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFadeToBlack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -95,6 +101,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFadeToBlack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
