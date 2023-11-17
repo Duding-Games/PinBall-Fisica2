@@ -24,6 +24,7 @@ bool ModuleGameOver::Start()
 	gameOverScreen = App->textures->Load("pinball/GameOver.png");
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 1);
+	playAgainButtons = App->textures->Load("pinball/playagainButtons.png");
 
 	LOG("Loading game over");
 	return true;
@@ -33,6 +34,8 @@ bool ModuleGameOver::Start()
 update_status ModuleGameOver::Update()
 {
 	App->renderer->Blit(gameOverScreen, 0, 0);
+	SDL_Rect rect = { 152,412,265, 140 };
+	App->renderer->Blit(playAgainButtons, 150, 100, &rect);
 
 	sprintf_s(scoreText, 10, "%d", App->player->prevScore);
 	App->fonts->BlitText(291, 548, scoreFont, scoreText);
@@ -40,6 +43,10 @@ update_status ModuleGameOver::Update()
 	sprintf_s(scoreText, 10, "%d", App->player->highScore);
 	App->fonts->BlitText(337, 617, scoreFont, scoreText);
 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+		SDL_Rect rect = { 152,200,265, 140 };
+		App->renderer->Blit(playAgainButtons, 150, 100, &rect);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
 		App->fadeToBlack->FadeToBlack(App->scene_gameOver, (Module*)App->scene_menu, 20.0f);
 	}
