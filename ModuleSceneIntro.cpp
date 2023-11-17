@@ -383,7 +383,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	//trapezium
 	int trapezium[10] = {
-		91, 302,
+		91, 290,
 		105, 296,
 		189, 356,
 		190, 456,
