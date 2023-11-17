@@ -34,6 +34,7 @@ bool ModuleSceneIntro::Start()
 	rick = App->textures->Load("pinball/rick_head.png");
 	map = App->textures->Load("pinball/Pinball.png");
 	flipper = App->textures->Load("pinball/paleta.png");
+	life = App->textures->Load("pinball/player.png");
 	//Audios
 	App->audio->PlayMusic("pinball/Audios/Music/gameplayMusic.ogg");
 	bonus_fx = App->audio->LoadFx("pinball/Audios/Fx/bonus.wav");
@@ -43,6 +44,7 @@ bool ModuleSceneIntro::Start()
 
 	lives = 3;
 
+	mapColliders.clear();
 	/*sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);*/
 
 	LoadMapCollisions();
@@ -111,6 +113,15 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
 		lives = 0;
+	}
+	if (lives >= 3) {
+		App->renderer->Blit(life, 20, 660);
+	}
+	if (lives >= 2) {
+		App->renderer->Blit(life, 20, 680);
+	}
+	if (lives >= 1) {
+		App->renderer->Blit(life, 20, 700);
 	}
 
 	if (lives <= 0) {
