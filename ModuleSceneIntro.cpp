@@ -56,7 +56,7 @@ update_status ModuleSceneIntro::Update()
 	//draw map
 	App->renderer->Blit(map, 0, 0);
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 		if (springForce < 150) {
 			springForce += 5;
 		}
@@ -65,9 +65,16 @@ update_status ModuleSceneIntro::Update()
 
 
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
 		springForce = 0;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		R_Paleta->body->ApplyForceToCenter(b2Vec2(0, -50), 1);
+	}
+
+
+
 	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	//{
 	//	ray_on = !ray_on;
@@ -209,7 +216,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 	b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics->GetWorld()->CreateJoint(&springDef);
 
 	// paleta R
-	R_Paleta = App->physics->CreateRectangle(293, 740, 45, 10, b2_staticBody);
+	R_Paleta = App->physics->CreateRectangle(293, 740, 45, 10, b2_dynamicBody);
 	R_Paleta->body->SetFixedRotation(false);
 	R_Paleta->type = ColliderType::UNKNOWN;
 
@@ -224,7 +231,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 	R_PaletaDef.enableLimit = true;
 	R_PaletaDef.lowerAngle = - 30 * DEGTORAD;
 	R_PaletaDef.upperAngle = 30 * DEGTORAD;
-	R_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(50), 0);
+	R_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(15), 0);
 	R_PaletaDef.localAnchorB.Set(0, 0);
 
 	b2RevoluteJoint* R_PaletaJoint = (b2RevoluteJoint*)App->physics->GetWorld()->CreateJoint(&R_PaletaDef);
@@ -317,7 +324,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		445, 617
 	};
 
-	App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody);
+	//App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody);
 
 	//left triangle
 	int left_triangle[6] = {
