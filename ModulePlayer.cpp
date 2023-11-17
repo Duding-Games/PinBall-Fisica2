@@ -22,8 +22,7 @@ bool ModulePlayer::Start()
 
 	pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL, b2_dynamicBody, 0.1f);
 	pbody->listener = this;
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
-
+	boost_fx = App->audio->LoadFx("pinball/Audios/Fx/boost.wav");
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
 
@@ -50,7 +49,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
 		isInside = true;
 		score += 100;
-		App->audio->PlayFx(bonus_fx);
+		App->audio->PlayFx(boost_fx);
 
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::UNKNOWN) {

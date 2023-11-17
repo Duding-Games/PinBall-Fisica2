@@ -32,8 +32,13 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/wheel.png");
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	map = App->textures->Load("pinball/Pinball.png");
+	//Audios
+	/*App->audio->PlayMusic("pinball/Audios/Music/gameplaymusic.ogg");*/
+	bonus_fx = App->audio->LoadFx("pinball/Audios/Fx/bonus.wav");
+	muelle_fx = App->audio->LoadFx("pinball/Audios/Fx/muelle.wav");
+	boost_fx = App->audio->LoadFx("pinball/Audios/Fx/boost.wav");
+	flipper_fx = App->audio->LoadFx("pinball/Audios/Fx/flipper.wav");
 
 	lives = 3;
 
@@ -80,11 +85,17 @@ update_status ModuleSceneIntro::Update()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
 		springForce = 0;
+		App->audio->PlayFx(muelle_fx);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 		R_Paleta->body->ApplyForceToCenter(b2Vec2(0, -50), 1);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		App->audio->PlayFx(flipper_fx);
+	}
+	
+
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN){
 		lives = 0;

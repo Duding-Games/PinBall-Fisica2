@@ -29,7 +29,7 @@ public:
 	PhysBody* pbody;
 	bool resetBall = false;
 	bool isInside = false;
-	uint bonus_fx;
+	uint boost_fx;
 	uint score = 000;
 	uint prevScore = 000;
 	uint highScore = 000;
