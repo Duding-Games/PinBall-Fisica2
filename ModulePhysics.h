@@ -14,6 +14,7 @@
 
 enum class ColliderType {
 	UNKNOWN,
+	METEOR,
 	SENSOR,
 	BALL,
 	POINT,

@@ -50,11 +50,11 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
 		isInside = true;
-		score += 100;
+		score += 5;
 		App->audio->PlayFx(boost_fx);
 
 	}
-	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::UNKNOWN) {
+	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::METEOR) {
 		score += 1;
 	}
 }
