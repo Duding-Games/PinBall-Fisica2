@@ -7,6 +7,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModuleFonts.h"
+#include "ModulePlayer.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -71,7 +72,7 @@ update_status ModuleSceneIntro::Update()
 		R_Paleta->body->ApplyForceToCenter(b2Vec2(0, -50), 1);
 	}
 
-
+	
 
 	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	//{
@@ -166,6 +167,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 
 
+
 	/*
 	if(bodyA)
 	{
@@ -248,6 +250,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 	// Sensor
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100, ColliderType::SENSOR);
+
+	
 
 	int background_collision[78] = {
 		514, 767,

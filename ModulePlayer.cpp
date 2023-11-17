@@ -5,6 +5,7 @@
 #include "ModuleFonts.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
+#include "ModuleSceneIntro.h"
 #include "SDL/include/SDL_scancode.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -43,6 +44,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SENSOR) {
 		resetBall = true;	
+		App->scene_intro->lives--;
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
 		isInside = true;

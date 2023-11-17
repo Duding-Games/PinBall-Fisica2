@@ -42,4 +42,6 @@ public:
 	p2Point<int> ray;
 	bool ray_on;
 
+	int lives = 3;
+
 };
