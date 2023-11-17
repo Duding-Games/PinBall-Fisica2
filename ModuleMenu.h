@@ -20,5 +20,6 @@ public:
 	void OnExitCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 	SDL_Texture* menuScreen;
+	SDL_Texture* playButton;
 
 };
