@@ -30,6 +30,7 @@ public:
 	bool resetBall = false;
 	bool isInside = false;
 	uint boost_fx;
+	uint lose_fx;
 	uint score = 000;
 	uint prevScore = 000;
 	uint highScore = 000;

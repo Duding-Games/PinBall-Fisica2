@@ -23,6 +23,7 @@ bool ModulePlayer::Start()
 	pbody = App->physics->CreateCircle(player.x, player.y, player.radius, ColliderType::BALL, b2_dynamicBody, 0.1f);
 	pbody->listener = this;
 	boost_fx = App->audio->LoadFx("pinball/Audios/Fx/boost.wav");
+	lose_fx = App->audio->LoadFx("pinball/Audios/Fx/losesound.wav");
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
 
@@ -43,7 +44,8 @@ bool ModulePlayer::CleanUp()
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SENSOR) {
-		resetBall = true;	
+		resetBall = true;
+		App->audio->PlayFx(lose_fx);
 		App->scene_intro->lives--;
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
