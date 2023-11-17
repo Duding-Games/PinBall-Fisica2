@@ -32,8 +32,6 @@ bool ModuleSceneIntro::Start()
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	map = App->textures->Load("pinball/Pinball.png");
 
-	char lookupTable[] = { "0123456789" };
-	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
 
 	/*sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);*/
 
@@ -153,10 +151,6 @@ update_status ModuleSceneIntro::Update()
 	//	if (normal.x != 0.0f)
 	//		App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	//}
-	/*
-	sprintf_s(scoreText, 10, "%7d", score);
-	App->fonts->BlitText(10, 10, scoreFont, scoreText);
-	score++;*/
 
 	return UPDATE_CONTINUE;
 }
