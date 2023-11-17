@@ -23,7 +23,7 @@ bool ModuleGameOver::Start()
 {
 	gameOverScreen = App->textures->Load("pinball/GameOver.png");
 	char lookupTable[] = { "0123456789" };
-	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
+	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 1);
 
 	LOG("Loading game over");
 	return true;
@@ -35,10 +35,10 @@ update_status ModuleGameOver::Update()
 	App->renderer->Blit(gameOverScreen, 0, 0);
 
 	sprintf_s(scoreText, 10, "%d", App->player->prevScore);
-	App->fonts->BlitText(260, 530, scoreFont, scoreText);
+	App->fonts->BlitText(291, 548, scoreFont, scoreText);
 
 	sprintf_s(scoreText, 10, "%d", App->player->highScore);
-	App->fonts->BlitText(310, 600, scoreFont, scoreText);
+	App->fonts->BlitText(337, 617, scoreFont, scoreText);
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
 		App->fadeToBlack->FadeToBlack(App->scene_gameOver, (Module*)App->scene_menu, 20.0f);
