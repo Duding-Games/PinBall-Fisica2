@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleFadeToBlack.h"
+#include "ModuleGameOver.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
@@ -33,6 +35,7 @@ bool ModuleSceneIntro::Start()
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	map = App->textures->Load("pinball/Pinball.png");
 
+	lives = 3;
 
 	/*sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);*/
 
@@ -45,6 +48,17 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	App->player->Disable();
+	App->physics->GetWorld()->DestroyBody(R_Paleta->body);
+	App->physics->GetWorld()->DestroyBody(R_PaletaPoint->body);
+	App->physics->GetWorld()->DestroyBody(spring->body);
+	App->physics->GetWorld()->DestroyBody(springPoint->body);
+
+	for (int i = 0; i < mapColliders.count(); i++)
+	{
+		PhysBody* body;
+		mapColliders.at(i, body);
+		App->physics->GetWorld()->DestroyBody(body->body);
+	}
 	LOG("Unloading Intro scene");
 
 	return true;
@@ -63,7 +77,6 @@ update_status ModuleSceneIntro::Update()
 
 		spring->body->ApplyForceToCenter(b2Vec2(0, springForce), 1);
 
-
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
 		springForce = 0;
@@ -73,7 +86,14 @@ update_status ModuleSceneIntro::Update()
 		R_Paleta->body->ApplyForceToCenter(b2Vec2(0, -50), 1);
 	}
 
-	
+	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN){
+		lives = 0;
+	}
+
+	if (lives <= 0) {
+		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
+	}
+
 
 	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	//{
@@ -226,33 +246,31 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	R_PaletaDef.referenceAngle = 0 * DEGTORAD;
 	R_PaletaDef.enableLimit = true;
-	R_PaletaDef.lowerAngle = - 30 * DEGTORAD;
+	R_PaletaDef.lowerAngle = -30 * DEGTORAD;
 	R_PaletaDef.upperAngle = 30 * DEGTORAD;
 	R_PaletaDef.localAnchorA.Set(PIXEL_TO_METERS(15), 0);
 	R_PaletaDef.localAnchorB.Set(0, 0);
 
 	b2RevoluteJoint* R_PaletaJoint = (b2RevoluteJoint*)App->physics->GetWorld()->CreateJoint(&R_PaletaDef);
 
-	
 
+	mapColliders.add(App->physics->CreateCircle(178, 225, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
 	// circles
-	App->physics->CreateCircle(178, 225, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-
-	App->physics->CreateCircle(258, 179, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-
-	App->physics->CreateCircle(254, 281, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-
-	App->physics->CreateCircle(239, 437, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-	App->physics->CreateCircle(382, 500, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
-	App->physics->CreateCircle(444, 580, 12, ColliderType::UNKNOWN, b2_staticBody, 0.7f);
+	mapColliders.add(App->physics->CreateCircle(258, 179, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(254, 281, 30, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(239, 437, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(382, 500, 15, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(444, 580, 12, ColliderType::UNKNOWN, b2_staticBody, 0.7f));
 
 	// boost
-	App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST);
+	mapColliders.add(App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST));
+
 	// Sensor
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, 566, 100, ColliderType::SENSOR);
+	mapColliders.add(sensor);
 
-	
+
 
 	int background_collision[78] = {
 		514, 767,
@@ -295,8 +313,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		489, 347,
 		489, 768
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, background_collision, 78, b2_staticBody, 0));
 
-	App->physics->CreateChain(0, 0, background_collision, 78, b2_staticBody, 0);
 
 	//left slide
 	int left_slide[12] = {
@@ -307,8 +325,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		107, 689,
 		89, 617
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody, 0.9f));
 
-	App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody, 0.9f);
 
 	// right slide
 	int right_slide[12] = {
@@ -319,8 +337,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		426, 689,
 		352, 726
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody, 0.9f));
 
-	App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody, 0.9f);
 
 	//left triangle
 	int left_triangle[6] = {
@@ -328,8 +346,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		132, 618,
 		151, 671
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody, 0.9f));
 
-	App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody, 0.9f);
 
 	//right triangle
 	int right_triangle[6] = {
@@ -337,8 +355,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		402, 617,
 		383, 670
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody, 0.9f));
 
-	App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody, 0.9f);
 
 	//center arrow
 	int center_arrow[12] = {
@@ -349,8 +367,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		266, 581,
 		253, 594
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody, 0.9f));
 
-	App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody, 0.9f);
 
 	//trapezium
 	int trapezium[10] = {
@@ -360,8 +378,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		190, 456,
 		91, 515
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody, 0.9f));
 
-	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody, 0.9f);
 
 	//center rectangle
 	int center_rectangle[8] = {
@@ -370,8 +388,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		344, 432,
 		285, 513
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody, 0.7f));
 
-	App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody, 0.7f);
 
 	//mini rect1
 	int mini_rect1[16] = {
@@ -384,8 +402,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		305, 383,
 		301, 383
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, mini_rect1, 16, b2_staticBody, 0.7f));
 
-	App->physics->CreateChain(0, 0, mini_rect1, 16, b2_staticBody, 0.7f);
 
 	//mini rect2
 	int mini_rect2[16] = {
@@ -398,8 +416,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		342, 383,
 		337, 383
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, mini_rect2, 16, b2_staticBody, 0.7f));
 
-	App->physics->CreateChain(0, 0, mini_rect2, 16, b2_staticBody, 0.7f);
 
 	//mini rect3
 	int mini_rect3[16] = {
@@ -412,8 +430,8 @@ void ModuleSceneIntro::LoadMapCollisions()
 		379, 383,
 		374, 383
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, mini_rect3, 16, b2_staticBody, 0.7f));
 
-	App->physics->CreateChain(0, 0, mini_rect3, 16, b2_staticBody, 0.7f);
 
 	//mini rect4
 	int mini_rect4[16] = {
@@ -426,6 +444,6 @@ void ModuleSceneIntro::LoadMapCollisions()
 		416, 383,
 		412, 383
 	};
+	mapColliders.add(App->physics->CreateChain(0, 0, mini_rect4, 16, b2_staticBody, 0.7f));
 
-	App->physics->CreateChain(0, 0, mini_rect4, 16, b2_staticBody, 0.7f);
 }

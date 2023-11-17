@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "Globals.h"
 
+
 class PhysBody;
 
 class ModuleSceneIntro : public Module
@@ -43,5 +44,7 @@ public:
 	bool ray_on;
 
 	int lives = 3;
+
+	p2List<PhysBody*> mapColliders;
 
 };

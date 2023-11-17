@@ -35,6 +35,7 @@ bool ModulePlayer::Start()
 // Unload assets
 bool ModulePlayer::CleanUp()
 {
+	App->physics->GetWorld()->DestroyBody(pbody->body);
 	LOG("Unloading player");
 
 	return true;

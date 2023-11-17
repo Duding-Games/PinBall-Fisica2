@@ -10,6 +10,7 @@
 #include "ModulePhysics.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleGameOver.h"
 #include "ModuleMenu.h"
 
 #include "Application.h"
@@ -26,6 +27,7 @@ Application::Application()
 	fadeToBlack = new ModuleFadeToBlack(this);
 	scene_menu = new ModuleMenu(this);
 	scene_intro = new ModuleSceneIntro(this, false);
+	scene_gameOver = new ModuleGameOver(this, false);
 	physics = new ModulePhysics(this);
 
 	// The order of calls is very important!
@@ -43,6 +45,7 @@ Application::Application()
 	// Scenes
 	AddModule(scene_menu);
 	AddModule(scene_intro);
+	AddModule(scene_gameOver);
 
 	// Fonts
 	AddModule(fonts);

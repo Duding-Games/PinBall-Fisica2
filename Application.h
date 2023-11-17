@@ -14,6 +14,7 @@ class ModulePlayer;
 class ModuleFadeToBlack;
 class ModuleMenu;
 class ModuleSceneIntro;
+class ModuleGameOver;
 class ModulePhysics;
 
 class Application
@@ -29,6 +30,7 @@ public:
 	ModuleFadeToBlack* fadeToBlack;
 	ModuleMenu* scene_menu;
 	ModuleSceneIntro* scene_intro;
+	ModuleGameOver* scene_gameOver;
 	ModulePhysics* physics;
 
 private:
