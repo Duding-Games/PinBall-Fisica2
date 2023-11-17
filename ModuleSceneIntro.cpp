@@ -13,7 +13,6 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rick = NULL;
 	ray_on = false;
 	sensed = false;
 }
@@ -29,12 +28,10 @@ bool ModuleSceneIntro::Start()
 	App->player->Enable();
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png");
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
 	map = App->textures->Load("pinball/Pinball.png");
 	flipper = App->textures->Load("pinball/paleta.png");
 	life = App->textures->Load("pinball/player.png");
+	muelle = App->textures->Load("pinball/muelle.png");
 	//Audios
 	App->audio->PlayMusic("pinball/Audios/Music/gameplayMusic.ogg");
 	bonus_fx = App->audio->LoadFx("pinball/Audios/Fx/bonus.wav");
@@ -82,7 +79,7 @@ update_status ModuleSceneIntro::Update()
 	SDL_Rect rect = { 0,0,66,14 };
 	App->renderer->Blit(flipper, METERS_TO_PIXELS(R_Paleta->body->GetPosition().x - offsetX), METERS_TO_PIXELS(R_Paleta->body->GetPosition().y - offsetY), &rect, SDL_FLIP_NONE, 1, R_Paleta->GetRotation());
 	App->renderer->Blit(flipper, METERS_TO_PIXELS(L_Paleta->body->GetPosition().x - offsetX), METERS_TO_PIXELS(L_Paleta->body->GetPosition().y - offsetY), &rect, SDL_FLIP_HORIZONTAL, 1, L_Paleta->GetRotation());
-	
+	App->renderer->Blit(muelle, METERS_TO_PIXELS(spring->body->GetPosition().x -12), METERS_TO_PIXELS(spring->body->GetPosition().y- 5));
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 		if (springForce < 150) {
@@ -149,6 +146,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 	spring = App->physics->CreateRectangle(504, 700, 24, 10, b2_dynamicBody);
 	spring->body->SetFixedRotation(true);
 	spring->type = ColliderType::POINT;
+
 
 
 	springPoint = App->physics->CreateCircle(500, 710, 3, ColliderType::POINT, b2_staticBody, 0);

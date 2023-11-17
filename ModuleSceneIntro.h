@@ -38,9 +38,7 @@ public:
 	SDL_Texture* map;
 	SDL_Texture* flipper;
 	SDL_Texture* life;
-	SDL_Texture* circle;
-	SDL_Texture* box;
-	SDL_Texture* rick;
+	SDL_Texture* muelle;
 	uint bonus_fx;
 	uint muelle_fx;
 	uint boost_fx;
