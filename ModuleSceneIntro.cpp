@@ -297,7 +297,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		489, 768
 	};
 
-	App->physics->CreateChain(0, 0, background_collision, 78, b2_staticBody);
+	App->physics->CreateChain(0, 0, background_collision, 78, b2_staticBody, 0);
 
 	//left slide
 	int left_slide[12] = {
@@ -309,7 +309,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		89, 617
 	};
 
-	App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody);
+	App->physics->CreateChain(0, 0, left_slide, 12, b2_staticBody, 0.9f);
 
 	// right slide
 	int right_slide[12] = {
@@ -321,7 +321,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		352, 726
 	};
 
-	App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody);
+	App->physics->CreateChain(0, 0, right_slide, 12, b2_staticBody, 0.9f);
 
 	//left triangle
 	int left_triangle[6] = {
@@ -330,7 +330,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		151, 671
 	};
 
-	App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody);
+	App->physics->CreateChain(0, 0, left_triangle, 6, b2_staticBody, 0.9f);
 
 	//right triangle
 	int right_triangle[6] = {
@@ -339,7 +339,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		383, 670
 	};
 
-	App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody);
+	App->physics->CreateChain(0, 0, right_triangle, 6, b2_staticBody, 0.9f);
 
 	//center arrow
 	int center_arrow[12] = {
@@ -351,7 +351,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		253, 594
 	};
 
-	App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody);
+	App->physics->CreateChain(0, 0, center_arrow, 12, b2_staticBody, 0.9f);
 
 	//trapezium
 	int trapezium[10] = {
@@ -362,7 +362,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		91, 515
 	};
 
-	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody);
+	App->physics->CreateChain(0, 0, trapezium, 10, b2_staticBody, 0.9f);
 
 	//center rectangle
 	int center_rectangle[8] = {
@@ -372,7 +372,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		285, 513
 	};
 
-	App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody);
+	App->physics->CreateChain(0, 0, center_rectangle, 8, b2_staticBody, 0.7f);
 
 	//mini rect1
 	int mini_rect1[16] = {
@@ -386,7 +386,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		301, 383
 	};
 
-	App->physics->CreateChain(0, 0, mini_rect1, 16, b2_staticBody);
+	App->physics->CreateChain(0, 0, mini_rect1, 16, b2_staticBody, 0.7f);
 
 	//mini rect2
 	int mini_rect2[16] = {
@@ -400,7 +400,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		337, 383
 	};
 
-	App->physics->CreateChain(0, 0, mini_rect2, 16, b2_staticBody);
+	App->physics->CreateChain(0, 0, mini_rect2, 16, b2_staticBody, 0.7f);
 
 	//mini rect3
 	int mini_rect3[16] = {
@@ -414,7 +414,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 		374, 383
 	};
 
-	App->physics->CreateChain(0, 0, mini_rect3, 16, b2_staticBody);
+	App->physics->CreateChain(0, 0, mini_rect3, 16, b2_staticBody, 0.7f);
 
 	//mini rect4
 	int mini_rect4[16] = {
@@ -428,5 +428,5 @@ void ModuleSceneIntro::LoadMapCollisions()
 		412, 383
 	};
 
-	App->physics->CreateChain(0, 0, mini_rect4, 16, b2_staticBody);
+	App->physics->CreateChain(0, 0, mini_rect4, 16, b2_staticBody, 0.7f);
 }
