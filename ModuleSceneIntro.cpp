@@ -302,7 +302,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 	mapColliders.add(App->physics->CreateCircle(444, 580, 12, ColliderType::METEOR, b2_staticBody, 0.7f));
 
 	// boost
-	mapColliders.add(App->physics->CreateRectangleSensor(75, 430, 40, 280, ColliderType::BOOST));
+	mapColliders.add(App->physics->CreateRectangleSensor(75, 420, 40, 280, ColliderType::BOOST));
 
 	// Sensor
 

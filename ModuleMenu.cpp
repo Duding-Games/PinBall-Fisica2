@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleAudio.h"
 #include "SDL/include/SDL_scancode.h"
 
 ModuleMenu::ModuleMenu(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -21,6 +22,8 @@ bool ModuleMenu::Start()
 {
 	menuScreen = App->textures->Load("pinball/menuScreen.png");
 	playButton = App->textures->Load("pinball/playButtons.png");
+
+	/*App->audio->PlayMusic("pinball/Audios/Music/intromusic.ogg");*/
 
 	LOG("Loading menu");
 	return true;

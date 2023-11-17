@@ -6,6 +6,8 @@
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleTextures.h"
+#include "ModuleRender.h"
 #include "SDL/include/SDL_scancode.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -26,6 +28,7 @@ bool ModulePlayer::Start()
 	lose_fx = App->audio->LoadFx("pinball/Audios/Fx/losesound.wav");
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
+	ptex = App->textures->Load("pinball/player.png");
 
 	LOG("Loading player");
 	return true;
@@ -71,6 +74,8 @@ void ModulePlayer::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+
+	App->renderer->Blit(ptex, METERS_TO_PIXELS(pbody->body->GetPosition().x - offset), METERS_TO_PIXELS(pbody->body->GetPosition().y - offset));
 
 	if (resetBall) {
 		pbody->body->GetWorld()->DestroyBody(pbody->body);

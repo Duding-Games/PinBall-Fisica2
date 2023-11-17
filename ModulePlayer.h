@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleTextures.h"
 #include "ModulePhysics.h"
 
 class ModulePlayer : public Module
@@ -34,6 +35,8 @@ public:
 	uint score = 000;
 	uint prevScore = 000;
 	uint highScore = 000;
+	SDL_Texture* ptex;
 	int scoreFont = -1;
+	int offset = 8;
 	char scoreText[10] = { "\0" };
 };
