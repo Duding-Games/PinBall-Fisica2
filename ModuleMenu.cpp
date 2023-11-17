@@ -23,7 +23,7 @@ bool ModuleMenu::Start()
 	menuScreen = App->textures->Load("pinball/menuScreen.png");
 	playButton = App->textures->Load("pinball/playButtons.png");
 
-	/*App->audio->PlayMusic("pinball/Audios/Music/intromusic.ogg");*/
+	App->audio->PlayMusic("pinball/Audios/Music/introMusic.ogg");
 
 	LOG("Loading menu");
 	return true;
@@ -42,7 +42,7 @@ update_status ModuleMenu::Update()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
-		App->fadeToBlack->FadeToBlack(App->scene_menu, (Module*)App->scene_intro, 20.0f);
+		App->fadeToBlack->FadeToBlack(App->scene_menu, (Module*)App->scene_intro, 100.0f);
 	}
 	
 	

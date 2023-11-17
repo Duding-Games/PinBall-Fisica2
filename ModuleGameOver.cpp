@@ -8,6 +8,7 @@
 #include "ModuleFonts.h"
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleAudio.h"
 #include "SDL/include/SDL_scancode.h"
 
 ModuleGameOver::ModuleGameOver(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -22,6 +23,7 @@ ModuleGameOver::~ModuleGameOver()
 bool ModuleGameOver::Start()
 {
 	gameOverScreen = App->textures->Load("pinball/GameOver.png");
+	App->audio->PlayMusic("pinball/Audios/Music/gameOverMusic.ogg");
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 1);
 
