@@ -61,6 +61,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::METEOR) {
 		score += 1;
+		App->audio->PlayFx(App->scene_intro->bonus_fx);
 	}
 }
 
@@ -76,7 +77,6 @@ void ModulePlayer::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	pbody->body->GetPosition().x
 
 	App->renderer->Blit(ptex, METERS_TO_PIXELS(pbody->body->GetPosition().x - offset), METERS_TO_PIXELS(pbody->body->GetPosition().y - offset));
 

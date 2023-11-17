@@ -36,6 +36,7 @@ public:
 	float springForce = 0;
 
 	SDL_Texture* map;
+	SDL_Texture* flipper;
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
@@ -47,6 +48,8 @@ public:
 	bool ray_on;
 
 	int lives = 3;
+	int offsetX = 33;
+	int offsetY = 7;
 
 	p2List<PhysBody*> mapColliders;
 

@@ -33,6 +33,7 @@ bool ModuleSceneIntro::Start()
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
 	map = App->textures->Load("pinball/Pinball.png");
+	flipper = App->textures->Load("pinball/paleta.png");
 	//Audios
 	/*App->audio->PlayMusic("pinball/Audios/Music/gameplaymusic.ogg");*/
 	bonus_fx = App->audio->LoadFx("pinball/Audios/Fx/bonus.wav");
@@ -74,8 +75,12 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	//draw map
+	//draw map 
 	App->renderer->Blit(map, 0, 0);
+	SDL_Rect rect = { 0,0,66,14 };
+	App->renderer->Blit(flipper, METERS_TO_PIXELS(R_Paleta->body->GetPosition().x - offsetX), METERS_TO_PIXELS(R_Paleta->body->GetPosition().y - offsetY), &rect, SDL_FLIP_NONE, 1, R_Paleta->GetRotation());
+	App->renderer->Blit(flipper, METERS_TO_PIXELS(L_Paleta->body->GetPosition().x - offsetX), METERS_TO_PIXELS(L_Paleta->body->GetPosition().y - offsetY), &rect, SDL_FLIP_HORIZONTAL, 1, L_Paleta->GetRotation());
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 		if (springForce < 150) {
@@ -116,84 +121,6 @@ update_status ModuleSceneIntro::Update()
 		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
 	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	//{
-	//	ray_on = !ray_on;
-	//	ray.x = App->input->GetMouseX();
-	//	ray.y = App->input->GetMouseY();
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	//{
-	//	circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
-	//	circles.getLast()->data->listener = this;
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	//{
-	//	boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
-	//}
-
-
-	// Prepare for raycast ------------------------------------------------------
-
-	//iPoint mouse;
-	//mouse.x = App->input->GetMouseX();
-	//mouse.y = App->input->GetMouseY();
-	//int ray_hit = ray.DistanceTo(mouse);
-
-	//fVector normal(0.0f, 0.0f);
-
-	//// All draw functions ------------------------------------------------------
-	//p2List_item<PhysBody*>* c = circles.getFirst();
-
-	//while (c != NULL)
-	//{
-	//	int x, y;
-	//	c->data->GetPosition(x, y);
-	//	if (c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
-	//		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
-	//	c = c->next;
-	//}
-
-	//c = boxes.getFirst();
-
-	//while (c != NULL)
-	//{
-	//	int x, y;
-	//	c->data->GetPosition(x, y);
-	//	App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-	//	if (ray_on)
-	//	{
-	//		int hit = c->data->RayCast(ray.x, ray.y, mouse.x, mouse.y, normal.x, normal.y);
-	//		if (hit >= 0)
-	//			ray_hit = hit;
-	//	}
-	//	c = c->next;
-	//}
-
-	//c = ricks.getFirst();
-
-	//while (c != NULL)
-	//{
-	//	int x, y;
-	//	c->data->GetPosition(x, y);
-	//	App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
-	//	c = c->next;
-	//}
-
-  //// ray -----------------
-	//if (ray_on == true)
-	//{
-	//	fVector destination(mouse.x - ray.x, mouse.y - ray.y);
-	//	destination.Normalize();
-	//	destination *= ray_hit;
-
-	//	App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
-
-	//	if (normal.x != 0.0f)
-	//		App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
-	//}
 
 	return UPDATE_CONTINUE;
 }
@@ -203,25 +130,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	int x, y;
 
 	App->audio->PlayFx(bonus_fx);
-
-
-
-
-
-
-
-	/*
-	if(bodyA)
-	{
-		bodyA->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}
-
-	if(bodyB)
-	{
-		bodyB->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}*/
 }
 
 void ModuleSceneIntro::LoadMapCollisions()
