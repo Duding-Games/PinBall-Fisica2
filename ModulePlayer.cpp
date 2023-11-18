@@ -27,7 +27,7 @@ bool ModulePlayer::Start()
 	boost_fx = App->audio->LoadFx("pinball/Audios/Fx/boost.wav");
 	lose_fx = App->audio->LoadFx("pinball/Audios/Fx/losesound.wav");
 	char lookupTable[] = { "0123456789" };
-	scoreFont = App->fonts->Load("pinball/NumsPinball.png", lookupTable, 2);
+	scoreFont = App->fonts->Load("pinball/NumsPinball2.png", lookupTable, 2);
 	ptex = App->textures->Load("pinball/player.png");
 
 	LOG("Loading player");
@@ -50,8 +50,10 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		resetBall = true;
 		App->audio->PlayFx(lose_fx);
 		App->scene_intro->lives--;
-		prevScore = score;
-		score = 0;
+		if (App->scene_intro->lives == 0) {
+			prevScore = score;
+			score = 0;
+		}
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
 		isInside = true;
@@ -104,7 +106,9 @@ update_status ModulePlayer::Update()
 	if (score > highScore) highScore = score;
 	
 	sprintf_s(scoreText, 10, "%d", score);
-	App->fonts->BlitText(10, 10, scoreFont, scoreText);
+	App->fonts->BlitText(10, 5, scoreFont, scoreText);
+	sprintf_s(scoreText, 10, "%d", prevScore);
+	App->fonts->BlitText(510, 5, scoreFont, scoreText);
 
 	return UPDATE_CONTINUE;
 }

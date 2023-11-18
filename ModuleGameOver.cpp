@@ -50,7 +50,7 @@ update_status ModuleGameOver::Update()
 		App->renderer->Blit(playAgainButtons, 150, 100, &rect);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP) {
-		App->fadeToBlack->FadeToBlack(App->scene_gameOver, (Module*)App->scene_menu, 100.0f);
+		App->fadeToBlack->FadeToBlack(App->scene_gameOver, (Module*)App->scene_intro, 100.0f);
 	}
 
 	return UPDATE_CONTINUE;
