@@ -125,10 +125,6 @@ update_status ModuleSceneIntro::Update()
 		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_UP) {
-		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
-	}
-
 
 	return UPDATE_CONTINUE;
 }
@@ -214,9 +210,9 @@ void ModuleSceneIntro::LoadMapCollisions()
 
 	
 	// circles
-	mapColliders.add(App->physics->CreateCircle(178, 225, 30, ColliderType::METEOR, b2_staticBody, 0.7f));
-	mapColliders.add(App->physics->CreateCircle(258, 179, 30, ColliderType::METEOR, b2_staticBody, 0.7f));
-	mapColliders.add(App->physics->CreateCircle(254, 281, 30, ColliderType::METEOR, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(178, 225, 30, ColliderType::SPECIAL_METEOR_1, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(258, 179, 30, ColliderType::SPECIAL_METEOR_2, b2_staticBody, 0.7f));
+	mapColliders.add(App->physics->CreateCircle(254, 281, 30, ColliderType::SPECIAL_METEOR_3, b2_staticBody, 0.7f));
 	mapColliders.add(App->physics->CreateCircle(239, 437, 15, ColliderType::METEOR, b2_staticBody, 0.7f));
 	mapColliders.add(App->physics->CreateCircle(382, 500, 15, ColliderType::METEOR, b2_staticBody, 0.7f));
 	mapColliders.add(App->physics->CreateCircle(444, 580, 12, ColliderType::METEOR, b2_staticBody, 0.7f));

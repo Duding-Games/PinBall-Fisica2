@@ -30,6 +30,9 @@ public:
 	PhysBody* pbody;
 	bool resetBall = false;
 	bool isInside = false;
+	bool boost_points_1 = false;
+	bool boost_points_2 = false;
+	bool boost_points_3 = false;
 	uint boost_fx;
 	uint lose_fx;
 	uint score = 000;

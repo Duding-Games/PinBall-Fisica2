@@ -50,6 +50,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		resetBall = true;
 		App->audio->PlayFx(lose_fx);
 		App->scene_intro->lives--;
+
 		if (App->scene_intro->lives == 0) {
 			prevScore = score;
 			score = 0;
@@ -57,13 +58,51 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::BOOST) {
 		isInside = true;
-		/*score += 5;*/
 		App->audio->PlayFx(boost_fx);
 
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::METEOR) {
 		score += 1;
 		App->audio->PlayFx(App->scene_intro->bonus_fx);
+	}
+	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SPECIAL_METEOR_1) {
+		score += 1;
+		App->audio->PlayFx(App->scene_intro->bonus_fx);
+		boost_points_1 = true;
+
+		if ((boost_points_1 == true) && (boost_points_2 == true) && (boost_points_3 == true)) {
+			score += 25;
+
+			boost_points_1 = false;
+			boost_points_2 = false;
+			boost_points_3 = false;
+		}
+	}
+	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SPECIAL_METEOR_2) {
+		score += 1;
+		App->audio->PlayFx(App->scene_intro->bonus_fx);
+		boost_points_2 = true;
+
+		if ((boost_points_1 == true) && (boost_points_2 == true) && (boost_points_3 == true)) {
+			score += 25;
+
+			boost_points_1 = false;
+			boost_points_2 = false;
+			boost_points_3 = false;
+		}
+	}
+	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SPECIAL_METEOR_3) {
+		score += 1;
+		App->audio->PlayFx(App->scene_intro->bonus_fx);
+		boost_points_3 = true;
+
+		if ((boost_points_1 == true) && (boost_points_2 == true) && (boost_points_3 == true)) {
+			score += 25;
+
+			boost_points_1 = false;
+			boost_points_2 = false;
+			boost_points_3 = false;
+		}
 	}
 }
 
@@ -99,12 +138,17 @@ update_status ModulePlayer::Update()
 		pbody->listener = this;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {
+		boost_points_2 = true;
+		boost_points_3 = true;
+	}
+
 	if (isInside) {
 		pbody->body->ApplyForceToCenter(b2Vec2(0.05f, -2), 1);
 	}
 
 	if (score > highScore) highScore = score;
-	
+
 	int prevScoreLength = snprintf(nullptr, 0, "%d", prevScore);
 
 	sprintf_s(scoreText, 10, "%d", score);
