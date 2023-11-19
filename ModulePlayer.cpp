@@ -138,11 +138,6 @@ update_status ModulePlayer::Update()
 		pbody->listener = this;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {
-		boost_points_2 = true;
-		boost_points_3 = true;
-	}
-
 	if (isInside) {
 		pbody->body->ApplyForceToCenter(b2Vec2(0.05f, -2), 1);
 	}
