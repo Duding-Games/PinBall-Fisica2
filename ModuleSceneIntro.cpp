@@ -188,7 +188,7 @@ void ModuleSceneIntro::LoadMapCollisions()
 	b2PrismaticJoint* springJoint = (b2PrismaticJoint*)App->physics->GetWorld()->CreateJoint(&springDef);
 
 	// paleta R
-	R_Paleta = App->physics->CreateRectangle(293, 740, 70, 10, b2_dynamicBody);
+	R_Paleta = App->physics->CreateRectangle(290, 743, 70, 10, b2_dynamicBody);
 	R_Paleta->body->SetFixedRotation(false);
 	R_Paleta->type = ColliderType::UNKNOWN;
 
