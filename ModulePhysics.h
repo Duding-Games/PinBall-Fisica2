@@ -69,6 +69,7 @@ public:
 
 	b2World* GetWorld();
 
+
 private:
 
 	bool debug;

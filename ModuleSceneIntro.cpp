@@ -106,6 +106,19 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 		App->audio->PlayFx(flipper_fx);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		if (App->player->pbody->body->GetFixtureList()->GetRestitution() < 1) {
+			float res = App->player->pbody->body->GetFixtureList()->GetRestitution();
+			App->player->pbody->body->GetFixtureList()->SetRestitution(res += 0.1f);
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		if (App->player->pbody->body->GetFixtureList()->GetRestitution() > 0) {
+			float res = App->player->pbody->body->GetFixtureList()->GetRestitution();
+			App->player->pbody->body->GetFixtureList()->SetRestitution(res -= 0.1f);
+		}
+	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
@@ -125,7 +138,7 @@ update_status ModuleSceneIntro::Update()
 		App->fadeToBlack->FadeToBlack(this, App->scene_gameOver);
 	}
 
-
+	LOG("Restituition: ------------------------------- %f", App->player->pbody->body->GetFixtureList()->GetRestitution());
 	return UPDATE_CONTINUE;
 }
 

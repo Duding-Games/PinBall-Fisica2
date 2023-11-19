@@ -26,6 +26,7 @@ bool ModulePlayer::Start()
 	pbody->listener = this;
 	boost_fx = App->audio->LoadFx("pinball/Audios/Fx/boost.wav");
 	lose_fx = App->audio->LoadFx("pinball/Audios/Fx/losesound.wav");
+	combo_fx = App->audio->LoadFx("pinball/Audios/Fx/combo.wav");
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball2.png", lookupTable, 1);
 	ptex = App->textures->Load("pinball/player.png");
@@ -72,7 +73,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if ((boost_points_1 == true) && (boost_points_2 == true) && (boost_points_3 == true)) {
 			score += 25;
-
+			App->audio->PlayFx(combo_fx);
 			boost_points_1 = false;
 			boost_points_2 = false;
 			boost_points_3 = false;
@@ -85,7 +86,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if ((boost_points_1 == true) && (boost_points_2 == true) && (boost_points_3 == true)) {
 			score += 25;
-
+			App->audio->PlayFx(combo_fx);
 			boost_points_1 = false;
 			boost_points_2 = false;
 			boost_points_3 = false;
@@ -98,7 +99,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if ((boost_points_1 == true) && (boost_points_2 == true) && (boost_points_3 == true)) {
 			score += 25;
-
+			App->audio->PlayFx(combo_fx);
 			boost_points_1 = false;
 			boost_points_2 = false;
 			boost_points_3 = false;
@@ -118,6 +119,15 @@ void ModulePlayer::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	float pgravity = pbody->body->GetGravityScale();
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		pgravity -= 0.1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		pgravity += 0.1;
+	}
+	pbody->body->SetGravityScale(pgravity);
+	/*LOG("gravity: %f", pgravity);*/
 
 	App->renderer->Blit(ptex, METERS_TO_PIXELS(pbody->body->GetPosition().x - offset), METERS_TO_PIXELS(pbody->body->GetPosition().y - offset));
 
