@@ -30,6 +30,7 @@ bool ModulePlayer::Start()
 	char lookupTable[] = { "0123456789" };
 	scoreFont = App->fonts->Load("pinball/NumsPinball2.png", lookupTable, 1);
 	ptex = App->textures->Load("pinball/player.png");
+	bonusText = App->textures->Load("pinball/scoreText.png");
 
 	LOG("Loading player");
 	return true;
@@ -47,6 +48,7 @@ bool ModulePlayer::CleanUp()
 
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+	
 	if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SENSOR) {
 		resetBall = true;
 		App->audio->PlayFx(lose_fx);
@@ -77,6 +79,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			boost_points_1 = false;
 			boost_points_2 = false;
 			boost_points_3 = false;
+			showBonus = true;
 		}
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SPECIAL_METEOR_2) {
@@ -90,6 +93,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			boost_points_1 = false;
 			boost_points_2 = false;
 			boost_points_3 = false;
+			showBonus = true;
 		}
 	}
 	else if (bodyA->type == ColliderType::BALL && bodyB->type == ColliderType::SPECIAL_METEOR_3) {
@@ -103,6 +107,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			boost_points_1 = false;
 			boost_points_2 = false;
 			boost_points_3 = false;
+			showBonus = true;
 		}
 	}
 }
@@ -120,7 +125,17 @@ void ModulePlayer::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
 update_status ModulePlayer::Update()
 {
 	prevScoreLength = snprintf(nullptr, 0, "%d", prevScore);
+	SDL_Rect rectBonus = { 0,43,101,41 };
 
+	if (showBonus) {
+		App->renderer->Blit(bonusText, 110, 50, &rectBonus);
+		contador++;
+		if (contador >= 120) {
+			showBonus = false;
+			contador = 0;
+		}
+	}
+	
 	float pgravity = pbody->body->GetGravityScale();
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		pgravity -= 0.1;

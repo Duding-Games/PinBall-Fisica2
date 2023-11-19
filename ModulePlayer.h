@@ -40,11 +40,16 @@ public:
 	uint prevScore = 000;
 	uint highScore = 000;
 	SDL_Texture* ptex;
+	SDL_Texture* bonusText;
 	int scoreFont = -1;
 	int offset = 8;
 	char scoreText[10] = { "\0" };
 
 	int prevScoreLength;
+
+	bool showBonus = false;
+
+	int contador = 0;
 
 	 
 };

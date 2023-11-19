@@ -85,7 +85,7 @@ update_status ModuleSceneIntro::Update()
 	SDL_Rect rectScoreText = { 0,0,97,41 };
 	App->renderer->Blit(scoreText, 10, 10, &rectScoreText);
 	
-	/*SDL_Rect rectBonus = { 0,43,101,41 };*/
+	
 	SDL_Rect rectPrevScoreText = { 0,86,183,41 };
 	App->renderer->Blit(scoreText, 350 - App->player->prevScoreLength * 28, 10, &rectPrevScoreText);
 
