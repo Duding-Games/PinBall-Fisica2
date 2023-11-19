@@ -119,6 +119,8 @@ void ModulePlayer::OnExitCollision(PhysBody* bodyA, PhysBody* bodyB)
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	prevScoreLength = snprintf(nullptr, 0, "%d", prevScore);
+
 	float pgravity = pbody->body->GetGravityScale();
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		pgravity -= 0.1;
@@ -154,10 +156,10 @@ update_status ModulePlayer::Update()
 
 	if (score > highScore) highScore = score;
 
-	int prevScoreLength = snprintf(nullptr, 0, "%d", prevScore);
+	
 
 	sprintf_s(scoreText, 10, "%d", score);
-	App->fonts->BlitText(10, 10, scoreFont, scoreText);
+	App->fonts->BlitText(120, 15, scoreFont, scoreText);
 	sprintf_s(scoreText, prevScoreLength + 1, "%d", prevScore);
 	App->fonts->BlitText(550 - prevScoreLength * 28, 10, scoreFont, scoreText);
 

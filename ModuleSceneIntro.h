@@ -39,6 +39,7 @@ public:
 	SDL_Texture* flipper;
 	SDL_Texture* life;
 	SDL_Texture* muelle;
+	SDL_Texture* scoreText;
 	uint bonus_fx;
 	uint muelle_fx;
 	uint boost_fx;

@@ -44,5 +44,7 @@ public:
 	int offset = 8;
 	char scoreText[10] = { "\0" };
 
+	int prevScoreLength;
+
 	 
 };

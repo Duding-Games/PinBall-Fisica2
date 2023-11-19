@@ -32,6 +32,7 @@ bool ModuleSceneIntro::Start()
 	flipper = App->textures->Load("pinball/paleta.png");
 	life = App->textures->Load("pinball/player.png");
 	muelle = App->textures->Load("pinball/muelle.png");
+	scoreText = App->textures->Load("pinball/scoreText.png");
 	//Audios
 	App->audio->PlayMusic("pinball/Audios/Music/gameplayMusic.ogg");
 	bonus_fx = App->audio->LoadFx("pinball/Audios/Fx/bonus.wav");
@@ -80,6 +81,13 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(flipper, METERS_TO_PIXELS(R_Paleta->body->GetPosition().x - offsetX), METERS_TO_PIXELS(R_Paleta->body->GetPosition().y - offsetY), &rect, SDL_FLIP_NONE, 1, R_Paleta->GetRotation());
 	App->renderer->Blit(flipper, METERS_TO_PIXELS(L_Paleta->body->GetPosition().x - offsetX), METERS_TO_PIXELS(L_Paleta->body->GetPosition().y - offsetY), &rect, SDL_FLIP_HORIZONTAL, 1, L_Paleta->GetRotation());
 	App->renderer->Blit(muelle, METERS_TO_PIXELS(spring->body->GetPosition().x -12), METERS_TO_PIXELS(spring->body->GetPosition().y- 5));
+
+	SDL_Rect rectScoreText = { 0,0,97,41 };
+	App->renderer->Blit(scoreText, 10, 10, &rectScoreText);
+	
+	/*SDL_Rect rectBonus = { 0,43,101,41 };*/
+	SDL_Rect rectPrevScoreText = { 0,86,183,41 };
+	App->renderer->Blit(scoreText, 350 - App->player->prevScoreLength * 28, 10, &rectPrevScoreText);
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 		if (springForce < 150) {
